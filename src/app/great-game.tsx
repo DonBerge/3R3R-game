@@ -142,11 +142,12 @@ const GreatGame = () => {
   const [turn, setTurn] = useState(0);
   const [activeGame, setActiveGame] = useState([-1, -1]);
 
-  const gameIsActive = (arg0: [number, number]) =>
-    (activeGame[0] == arg0[0] && activeGame[1] == arg0[1]) ||
-    (activeGame[0] == -1 && activeGame[1] == -1);
-
+  
   const gameOutcome = verificarEstadoJuego(gameState);
+  const gameIsActive = (arg0: [number, number]) =>
+    gameOutcome == 0 &&
+    ((activeGame[0] == arg0[0] && activeGame[1] == arg0[1]) ||
+    (activeGame[0] == -1 && activeGame[1] == -1));
 
   return (
     <div className="flex flex-col gap-y-6">
@@ -179,13 +180,13 @@ const GreatGame = () => {
       </table>
       {gameOutcome == 0 ? (
         <p className="flex items-center justify-center gap-x-1">
-          Juega: {turn == 0 ? <RxCross1 /> : <FaRegCircle />}
+          Juega: {turn == 0 ? <FaRegCircle /> : <RxCross1 />}
         </p>
       ) : gameOutcome == -1 ? (
         <p className="text-center">Empate</p>
       ) : (
         <p className="flex items-center justify-center gap-x-1">
-          Gano {gameOutcome == 0 ? <RxCross1 /> : <FaRegCircle />}
+          Gano {gameOutcome == 1 ? <FaRegCircle /> : <RxCross1 />}
         </p>
       )}
     </div>
